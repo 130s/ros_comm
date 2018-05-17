@@ -103,6 +103,7 @@ def _roswtf_main():
                       dest="all_packages", default=False,
                       action="store_true",
                       help="run roswtf against all packages")
+
     # #2270
     parser.add_option("--no-plugins", 
                       dest="disable_plugins", default=False,
@@ -113,6 +114,11 @@ def _roswtf_main():
                       dest="offline", default=False,
                       action="store_true",
                       help="only run offline tests")
+
+    parser.add_option("--verbose", 
+                      dest="verbose", default=False,
+                      action="store_true",
+                      help="returns verbose output.")
 
     #TODO: --all-pkgs option
     options, args = parser.parse_args()
@@ -167,7 +173,6 @@ def _roswtf_main():
         if options.all_packages:
             print("roswtf will run against all packages")
             ctx.pkgs = all_pkgs
-
     # static checks
     wtf_check_environment(ctx)
     roswtf.rosdep_db.wtf_check(ctx)
@@ -240,3 +245,7 @@ def _roswtf_main():
 
     #TODO: print results in YAML if run remotely
     #yaml_results(ctx)
+
+    if options.verbose:
+        print("Verbose option is on.")
+        print("- Environment variables: {}".format(ctx.env))

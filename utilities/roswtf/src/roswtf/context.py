@@ -295,6 +295,7 @@ def _load_env(ctx, env):
     @raise WtfException: if context state cannot be initialized
     """
     ctx.env = env
+
     try:
         ctx.ros_root = env[rospkg.environment.ROS_ROOT]
     except KeyError:
